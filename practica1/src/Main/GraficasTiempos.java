@@ -1,32 +1,52 @@
 package Main;
 
+import Clases.*;
 import fundamentos.*;
 public class GraficasTiempos {
 
 	public static void main (String[] args) {
 
-		Grafica g = new Grafica ("Tiempos Medios De Ejecución","iteraciones","tiempo");
-		int n1= 25;
-		double x;
+		QuickSort<Object> q = new QuickSort<Object>();
+		InsertionSort<Object> i = new InsertionSort<Object>();
 
-		// El primer grafico
+
+		int e = 0;
+		int[] numElem = {500};
+		int iteraciones = numElem[e];
+
+
+		Grafica g = new Grafica ("Tiempos Medios De Ejecución","iteraciones","tiempo");
 		g.ponColor(Grafica.azul);
-		g.ponTitulo("Seno");
-		for (int i=0; i<=n1; i++) {
-			x = i/10.0;
-			g.inserta(x,Math.sin(x));
+		g.ponTitulo("n²");
+		for (int n=0; n<iteraciones;n++) {
+			g.inserta(n, Math.pow(n, 2));
 		}
 
-		// El segundo grafico
 		g.otraGrafica();
 		g.ponColor(Grafica.rojo);
-		g.ponTitulo("Coseno");
-		for (int i=0; i<=n1; i++) {
-			x = i/10.0;
-			g.inserta(x,Math.cos(x));
+		g.ponTitulo("n(log(n))");
+		for (int n=0; n<iteraciones;n++) {
+			g.inserta(n, n* Math.log(n) / Math.log(2));
 		}
+
+		g.otraGrafica();
+		g.ponColor(Grafica.rosa);
+		g.ponTitulo("QuickSort");
+		for (int n=0; n<iteraciones;n++) {
+			int quickSort = q.tMedSort(iteraciones, 500);
+			g.inserta(n,quickSort);
+		}
+
+		g.otraGrafica();
+		g.ponColor(Grafica.negro);
+		g.ponTitulo("InsertionSort");
+		for (int n=0; n<iteraciones;n++) {
+			int insertionSort = i.tMedSort(iteraciones, 500);
+			g.inserta(n,insertionSort);
+		}
+
 		g.pinta();
 
 		System.exit(0);
+		}
 	}
-}

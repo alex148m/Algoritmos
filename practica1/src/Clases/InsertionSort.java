@@ -10,6 +10,7 @@ import java.util.Random;
 public class InsertionSort<T> implements Sort<T> {
 
 	private Comparator<T> comp = null;
+	int counter=0; //Variable global de contador
 
 	/**
 	 * Constructor por defecto
@@ -32,8 +33,7 @@ public class InsertionSort<T> implements Sort<T> {
 	 * @param d la secuencia de objetos de tipo T
 	 */
 	public int sort( T[] d ){
-		sort( d, 0, d.length - 1 );
-		return 0;
+		return sort( d, 0, d.length - 1 );
 	}
 
 	/**
@@ -44,18 +44,26 @@ public class InsertionSort<T> implements Sort<T> {
 	 */
 	public int sort( T[] d, int start, int end ) {
 		T key;
-		int i, j,numIntrucciones=0;
+		int i, j;
 
 		// j indexa el elemento que se va a insertar
 		// i indexa las posibles posiciones en las que se podría insertar el elemento j
+		counter++;
 		for ( j = start + 1; j <= end; j++ ){
+			counter+=2;
 			key = d[ j ];
-			for ( i = j - 1; i >= 0 && compare( key, d[ i ] ) < 0; i-- )
+			counter+=2;
+			for ( i = j - 1; i >= 0 && compare( key, d[ i ] ) < 0; i-- ) {
+				counter+=3;
 				d[ i + 1 ] = d[ i ];
-			numIntrucciones++;
+				counter++;
+			}
+			counter++;
 			d[ i + 1] = key;
+			counter++;
 		}
-		return numIntrucciones;
+		counter++;
+		return counter;
 	}
 
 	/**
