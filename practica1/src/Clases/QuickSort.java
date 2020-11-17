@@ -49,9 +49,8 @@ public class QuickSort<T> implements Sort<T>
 		counter++;
 		if ( start >= end )
 			return counter;
-		counter++;
 		int p = partition( d, start, end );
-		counter++;
+		counter+=p;
 		sort( d, start, p - 1 );
 		sort( d, p + 1, end );
 
